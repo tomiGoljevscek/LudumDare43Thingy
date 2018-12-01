@@ -19,7 +19,7 @@ public class FPSController : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetButton("Escape"))
+        if (Input.GetKey(KeyCode.Escape))
         {
             Cursor.lockState = CursorLockMode.None;
         }
