@@ -27,6 +27,9 @@ namespace Manoeuvre
         CharacterController charController;
         public static ManoeuvreFPSController Instance;
 
+
+        public bool IsWalking { get { return Walking; } set { } }
+
         //Editor Variable
         [HideInInspector]
         public int propertyTab;

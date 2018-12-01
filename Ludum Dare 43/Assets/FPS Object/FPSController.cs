@@ -5,15 +5,35 @@ using UnityEngine;
 public class FPSController : MonoBehaviour
 {
 
+    public int health = 100;
+
+
+
+    //state: 0 idle, 1 walk, 2 meele swing 3 bolts, 4 stream
+    [SerializeField]
+    Animator animator;
+
+    Manoeuvre.ManoeuvreFPSController manController;
+    FPSWeaponLogic weaponLogic;
+
+
+
+    
 
 
     // Use this for initialization
     void Start()
     {
+        manController = GetComponent<Manoeuvre.ManoeuvreFPSController>();
+        weaponLogic = GetComponent<FPSWeaponLogic>();
+
         //Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
+
     }
+
+
 
     // Update is called once per frame
     void Update()
@@ -23,9 +43,6 @@ public class FPSController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
         }
-
-
-
         if (Input.GetMouseButton(0))
         {
             if (Cursor.lockState == CursorLockMode.None)
@@ -34,7 +51,29 @@ public class FPSController : MonoBehaviour
 
 
 
+        
+        if (weaponLogic.isFiring)
+        {
+            animator.SetInteger("state", weaponLogic.selectedWeapon.animationType);
+        }
+        
+        //walking check at the end
+        else if (manController.Locomotion.CurrentPlayerState == Manoeuvre.PlayerStates.Walking)
+        {
+            animator.SetInteger("state", 1);
+        }
+        else
+        {
+            animator.SetInteger("state", 0);
+        }
+
+
+
+
     }
+
+
+
 
 
 }
